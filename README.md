@@ -13,7 +13,7 @@ Windows OS + Xperia 1 II<br>
 mac OS + iPhone 13 Pro
 
 # 解像度選択サンプル
-https://github.com/kamahiekama/ToFAR_MySample/blob/main/Assets/Scenes/Select_Resolution.unity
+https://github.com/kamahiekama/ToFAR_MySample/blob/main/Assets/Scenes/Select_Resolution.unity <br>
 ToFArCameraSelector.cs を ToFARColorManager と同じ GameObject に追加すれば動作すると思います。
 
 やっていることは、以下です。
