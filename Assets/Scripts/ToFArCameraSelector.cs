@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -6,17 +7,44 @@ using UnityEngine;
 
 public class ToFArCameraSelector : MonoBehaviour
 {
-    public int width = 1280;
+    public int desiredWidth = 1280;
 
-    public int fps = 30;
+    public int desiredHeight = 720;
+
+    public int desiredFramerate = 30;
 
     TofArColorManager mgr;
+
+    /// <summary>
+    /// 実効フレームレート
+    /// </summary>
+    public float frameRate = 0;
+
+    /// <summary>
+    /// 実際に取得されたフレームの解像度（横幅）
+    /// </summary>
+    public int width;
+
+    /// <summary>
+    /// 実際に取得されたフレーム解像度（縦幅）
+    /// </summary>
+    public int height;
 
     void Awake(){
         mgr = GetComponent<TofArColorManager>();
 
         // disable auto start
         mgr.autoStart = false;
+
+        TofArColorManager.OnFrameArrived += OnFrameArrived;
+    }
+
+    private void OnFrameArrived(object sender)
+    {
+        ResolutionProperty rp = mgr.GetProperty<ResolutionProperty>();
+        frameRate = mgr.FrameRate;
+        width = rp.width;
+        height = rp.height;
     }
 
     // Start is called before the first frame update
@@ -34,12 +62,9 @@ public class ToFArCameraSelector : MonoBehaviour
             ResolutionProperty rp = properties.resolutions[i];
             sb.Append("[" + i + "]: " + rp + "\r\n");
 
-            // ignore 0 fps mode
-            if (rp.frameRate == 0){
-                continue;    
-            }
+            rp.frameRate = desiredFramerate;
 
-            int diff = Mathf.Abs(rp.width - width);
+            int diff = Mathf.Abs(rp.width - desiredWidth) + Mathf.Abs(rp.height - desiredHeight);
             if (diff < minDiff){
                 selectedIndex = i;
                 selectedResolutionProperty = rp;
