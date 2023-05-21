@@ -12,13 +12,14 @@ ToF AR: ver 1.3.0
 Windows OS + Xperia 1 II<br>
 mac OS + iPhone 13 Pro
 
-# 解像度選択サンプル
-https://github.com/kamahiekama/ToFAR_MySample/blob/main/Assets/Scenes/Select_Resolution.unity <br>
-ToFArCameraSelector.cs を ToFARColorManager と同じ GameObject に追加すれば動作すると思います。
+# 解像度選択のサンプルシーン
+Scene/Select_Resolution シーンを開いてください。<br>
 
-やっていることは、以下です。
+ToFArCameraSelector.cs でやっていることは、以下です。
 
 1. autostart を false にする（ストリーム自動で開始させない）
 2. 解像度一覧を取得し、設定したい値に近いものを取得する
 3. 設定を反映させる
 4. ストリームを開始させる
+
+ToFArCameraSelector.cs を ToFARColorManager と同じ GameObject に追加すれば他のシーンでも動作すると思います。
