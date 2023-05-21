@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44402242, g: 0.49316543, b: 0.5722324, a: 1}
+  m_IndirectSpecularColor: {r: 0.4439403, g: 0.4931519, b: 0.5722083, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -177,6 +177,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4340676964826256, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
+      propertyPath: processTexture
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
+      propertyPath: isProcessTexture
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
+      propertyPath: useFrontCameraAsDefault
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -471,7 +483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212c5ce1dfab414baa9218bb0e036b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UseFrontCamera: 0
+  UseFrontCamera: 1
   DesiredWidth: 1280
   DesiredHeight: 720
   DesiredFramerate: 30
