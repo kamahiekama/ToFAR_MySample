@@ -68,7 +68,9 @@ public class ToFArCameraSelector : MonoBehaviour
                 continue;
             }
 
+#if UNITY_ANDROID
             rp.frameRate = DesiredFramerate;
+#endif
 
             int diff = Mathf.Abs(rp.width - DesiredWidth) + Mathf.Abs(rp.height - DesiredHeight);
             if (diff < minDiff){
