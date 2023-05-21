@@ -20,6 +20,8 @@ public class ToFArCameraSelector : MonoBehaviour
 
     TofArColorManager mgr;
 
+    TofArTofManager tmgr;
+
     /// <summary>
     /// 実効フレームレート
     /// </summary>
@@ -35,13 +37,25 @@ public class ToFArCameraSelector : MonoBehaviour
     /// </summary>
     public int height;
 
-    void Awake(){
+    public int tofFrameRate = 0;
+    public int tofWidth;
+    public int tofHeight;
+
+    void Awake()
+    {
         mgr = GetComponent<TofArColorManager>();
 
         // disable auto start
         mgr.autoStart = false;
 
         TofArColorManager.OnFrameArrived += OnFrameArrived;
+
+        tmgr = FindObjectOfType<TofArTofManager>();
+
+        if (tmgr)
+        {
+            TofArTofManager.OnFrameArrived += OnTofFrameArrived;
+        }
     }
 
     private void OnFrameArrived(object sender)
@@ -50,6 +64,14 @@ public class ToFArCameraSelector : MonoBehaviour
         frameRate = mgr.FrameRate;
         width = rp.width;
         height = rp.height;
+    }
+
+    private void OnTofFrameArrived(object sender)
+    {
+        CameraConfigurationProperty ccp = tmgr.GetProperty<CameraConfigurationProperty>();
+        frameRate = tmgr.FrameRate;
+        tofWidth = ccp.width;
+        tofHeight = ccp.height;
     }
 
     // Start is called before the first frame update
@@ -63,11 +85,13 @@ public class ToFArCameraSelector : MonoBehaviour
 
         int minDiff = 10000;
         int selectedIndex = 0;
-        for(int i = 0; i < properties.resolutions.Length; i++){
+        for (int i = 0; i < properties.resolutions.Length; i++)
+        {
             ResolutionProperty rp = properties.resolutions[i];
             sb.Append("[" + i + "]: " + rp + "\r\n");
 
-            if ((rp.lensFacing == 0) != UseFrontCamera){
+            if ((rp.lensFacing == 0) != UseFrontCamera)
+            {
                 continue;
             }
 
@@ -76,7 +100,8 @@ public class ToFArCameraSelector : MonoBehaviour
 #endif
 
             int diff = Mathf.Abs(rp.width - DesiredWidth) + Mathf.Abs(rp.height - DesiredHeight);
-            if (diff < minDiff){
+            if (diff < minDiff)
+            {
                 selectedIndex = i;
                 selectedResolutionProperty = rp;
                 minDiff = diff;
@@ -86,7 +111,6 @@ public class ToFArCameraSelector : MonoBehaviour
         Debug.Log(sb.ToString());
         Debug.Log("selected: [" + selectedIndex + "] : " + selectedResolutionProperty);
 
-        TofArTofManager tmgr = TofArTofManager.Instance;
         CameraConfigurationProperty selectedTofConfig = null;
         if (UseDepth && tmgr)
         {
@@ -94,7 +118,7 @@ public class ToFArCameraSelector : MonoBehaviour
 
             // seach same aspect configuration
             float colorAspect = (float)selectedResolutionProperty.width / selectedResolutionProperty.height;
-            foreach(CameraConfigurationProperty config in tofProperties.configurations)
+            foreach (CameraConfigurationProperty config in tofProperties.configurations)
             {
                 float aspect = (float)config.width / config.height;
                 if (Mathf.Abs(aspect - colorAspect) > 0.001f)
@@ -107,10 +131,14 @@ public class ToFArCameraSelector : MonoBehaviour
 
         if (UseDepth && tmgr && selectedTofConfig != null)
         {
+            Debug.Log("StartStreamWithColor (ToF)");
+
             tmgr.StartStreamWithColor(selectedTofConfig, selectedResolutionProperty, true, true);
         }
         else
         {
+            Debug.Log("StartStream (Color)");
+
             mgr.StartStream(selectedResolutionProperty);
         }
     }
@@ -118,6 +146,6 @@ public class ToFArCameraSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

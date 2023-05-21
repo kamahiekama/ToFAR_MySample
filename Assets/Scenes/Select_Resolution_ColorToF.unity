@@ -180,11 +180,23 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
+      propertyPath: autoStart
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
       propertyPath: processTexture
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
       propertyPath: isProcessTexture
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
+      propertyPath: lensStabilization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114229016361985042, guid: b83351e5af1021d4fad6095e7da2cd24, type: 3}
+      propertyPath: useFrontCameraAsDefault
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -254,6 +266,34 @@ PrefabInstance:
     - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
       propertyPath: autoStart
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
+      propertyPath: processTexture
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
+      propertyPath: isProcessTexture
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
+      propertyPath: processConfidence
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
+      propertyPath: processPointCloud
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
+      propertyPath: isProcessConfidence
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
+      propertyPath: isProcessPointCloud
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114804137692190482, guid: ad78f67120347904daec5250365943c4, type: 3}
+      propertyPath: useFrontCameraAsDefault
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -552,6 +592,9 @@ MonoBehaviour:
   frameRate: 0
   width: 0
   height: 0
+  tofFrameRate: 0
+  tofWidth: 0
+  tofHeight: 0
 --- !u!1 &1286918298
 GameObject:
   m_ObjectHideFlags: 0
