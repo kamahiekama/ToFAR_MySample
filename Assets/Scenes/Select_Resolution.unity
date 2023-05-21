@@ -471,8 +471,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0212c5ce1dfab414baa9218bb0e036b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  desiredWidth: 1280
-  desiredHeight: 720
+  desiredWidth: 1920
+  desiredHeight: 1080
   desiredFramerate: 30
   frameRate: 0
   width: 0

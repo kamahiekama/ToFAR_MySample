@@ -7,11 +7,13 @@ using UnityEngine;
 
 public class ToFArCameraSelector : MonoBehaviour
 {
-    public int desiredWidth = 1280;
+    public bool UseFrontCamera = false;
 
-    public int desiredHeight = 720;
+    public int DesiredWidth = 1280;
 
-    public int desiredFramerate = 30;
+    public int DesiredHeight = 720;
+
+    public int DesiredFramerate = 30;
 
     TofArColorManager mgr;
 
@@ -62,9 +64,13 @@ public class ToFArCameraSelector : MonoBehaviour
             ResolutionProperty rp = properties.resolutions[i];
             sb.Append("[" + i + "]: " + rp + "\r\n");
 
-            rp.frameRate = desiredFramerate;
+            if ((rp.lensFacing == 0) != UseFrontCamera){
+                continue;
+            }
 
-            int diff = Mathf.Abs(rp.width - desiredWidth) + Mathf.Abs(rp.height - desiredHeight);
+            rp.frameRate = DesiredFramerate;
+
+            int diff = Mathf.Abs(rp.width - DesiredWidth) + Mathf.Abs(rp.height - DesiredHeight);
             if (diff < minDiff){
                 selectedIndex = i;
                 selectedResolutionProperty = rp;
