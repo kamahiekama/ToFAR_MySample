@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TofAr.V0.Color;
+using TofAr.V0.Tof;
 using UnityEngine;
 
 public class ToFArCameraSelector : MonoBehaviour
@@ -14,6 +15,8 @@ public class ToFArCameraSelector : MonoBehaviour
     public int DesiredHeight = 720;
 
     public int DesiredFramerate = 30;
+
+    public bool UseDepth = false;
 
     TofArColorManager mgr;
 
@@ -83,9 +86,33 @@ public class ToFArCameraSelector : MonoBehaviour
         Debug.Log(sb.ToString());
         Debug.Log("selected: [" + selectedIndex + "] : " + selectedResolutionProperty);
 
-        mgr.SetProperty<ResolutionProperty>(selectedResolutionProperty);
+        TofArTofManager tmgr = TofArTofManager.Instance;
+        CameraConfigurationProperty selectedTofConfig = null;
+        if (UseDepth && tmgr)
+        {
+            CameraConfigurationsProperty tofProperties = tmgr.GetProperty<CameraConfigurationsProperty>();
 
-        mgr.StartStream(selectedResolutionProperty);
+            // seach same aspect configuration
+            float colorAspect = (float)selectedResolutionProperty.width / selectedResolutionProperty.height;
+            foreach(CameraConfigurationProperty config in tofProperties.configurations)
+            {
+                float aspect = (float)config.width / config.height;
+                if (Mathf.Abs(aspect - colorAspect) > 0.001f)
+                {
+                    continue;
+                }
+                selectedTofConfig = config;
+            }
+        }
+
+        if (UseDepth && tmgr && selectedTofConfig != null)
+        {
+            tmgr.StartStreamWithColor(selectedTofConfig, selectedResolutionProperty, true, true);
+        }
+        else
+        {
+            mgr.StartStream(selectedResolutionProperty);
+        }
     }
 
     // Update is called once per frame
